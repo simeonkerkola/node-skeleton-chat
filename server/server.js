@@ -21,10 +21,17 @@ io.on('connection', (socket) => {
   // first arg = name of the event to emit, second arg object
   // that object is sent to a client side
 
+  // socket.emit from Admin text: Welcome to chat app
   socket.emit('newMessage', {
-    from: 'Me',
-    text: 'Hey long time no see!',
-    createdAt: 'timestamp',
+    from: 'Admin',
+    text: 'Welcome to chat app!',
+  })
+
+  // broadcast sends an event to everybody but this socket
+  socket.broadcast.emit('newMessage', {
+    from: 'Admin',
+    text: 'New user joined!',
+    createdAt: new Date().getTime(),
   })
 
   socket.on('createMessage', (message) => {
@@ -34,6 +41,14 @@ io.on('connection', (socket) => {
       text: message.text,
       createdAt: new Date().getTime(),
     })
+
+
+    // broadcast sends an event to everybody but this socket
+    // socket.broadcast.emit('newMessage', {
+    //   from: message.from,
+    //   text: message.text,
+    //   createdAt: new Date().getTime(),
+    // })
   })
 
   socket.on('disconnect', () => {
