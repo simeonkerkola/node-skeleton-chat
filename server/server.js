@@ -31,12 +31,10 @@ io.on('connection', (socket) => {
     console.log(message)
     io.emit('newMessage', generateMessage(message.from, message.text))
     gotMessage('this is from the server')
-    // broadcast sends an event to everybody but this socket
-    // socket.broadcast.emit('newMessage', {
-    //   from: message.from,
-    //   text: message.text,
-    //   createdAt: new Date().getTime(),
-    // })
+  })
+
+  socket.on('createLocationMessage', (coords) => {
+    io.emit('newMessage', generateMessage('Admin', `${coords.lat}, ${coords.lng}`))
   })
 
   socket.on('disconnect', () => {
