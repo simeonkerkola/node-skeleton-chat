@@ -15,8 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.4",
-    "socket.io": "^1.7.4",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "socket.io": "^1.7.4"
   },
   "devDependencies": {
     "eslint": "^4.4.1",

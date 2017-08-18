@@ -27,11 +27,10 @@ io.on('connection', (socket) => {
   // broadcast sends an event to everybody but this socket
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined!'))
 
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, gotMessage) => {
     console.log(message)
-    io.emit('newMessage', message)
-
-
+    io.emit('newMessage', generateMessage(message.from, message.text))
+    gotMessage('this is from the server')
     // broadcast sends an event to everybody but this socket
     // socket.broadcast.emit('newMessage', {
     //   from: message.from,
