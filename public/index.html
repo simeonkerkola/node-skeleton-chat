@@ -3,26 +3,34 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body>
-  <p>💀 Not an actual skeleton chat for the undead, merely a chat skeleton</p>
+<body class="chat">
 
-  <ol id="messages"></ol>
+  <div class="chat__sidebar">
+    <h3>People</h3>
+    <div class="users"></div>
+  </div>
 
-  <form id="message-form">
-    <input name="message" type="text" placeholder="Message"/>
-    <button>Send</button>
-  </form>
-  <button id="send-location">Send location</button>
+  <div class="chat__main">
+    <ol id="messages" class="chat__messages"></ol>
 
-  <br>
-  <br>
-  <p class="text-muted">© <a href="http://smi.fyi">Simeon Kerkola</a> 2017 Source Code available under MIT license <a href="https://github.com/sssmi/node-skeleton-chat">here.</a>
-    
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/js/libs/jquery-3.2.1.min.js"></script>
-  <script src="/js/index.js"></script>
-</body>
+    <div class="chat__footer">
+      <form id="message-form">
+        <input name="message" type="text" placeholder="Message" autofocus autocomplete="off"/>
+        <button>Send</button>
+      </form>
+      <button id="send-location">Send location</button>
+    </div>
 
-</html>
+    <p class="text-muted">© <a href="http://smi.fyi">Simeon Kerkola</a> 2017 Source Code available under MIT license <a href="https://github.com/sssmi/node-skeleton-chat">here.</a>
+
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/libs/jquery-3.2.1.min.js"></script>
+    <script src="/js/index.js"></script>
+  </body>
+
+  </html>

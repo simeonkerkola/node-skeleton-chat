@@ -25,7 +25,7 @@ socket.on('newLocationMessage', function (message) {
   li.text(`${message.from}: `)
   a.attr('href', message.url)
   li.append(a)
-  $('#messages').append(li) 
+  $('#messages').append(li)
 })
 
 // e = event
@@ -33,10 +33,14 @@ $('#message-form').on('submit', function (e) {
   // prevent the page load when submitting the form
   e.preventDefault()
 
+  var messageTextBox = $('[name=message]')
+
   socket.emit('createMessage', {
     from: 'User',
-    text: $('[name=message]').val(), // gets the value of message input field
-  }, function () {})
+    text: messageTextBox.val(), // gets the value of message input field
+  }, function () {
+    messageTextBox.val('') // clears value after message sent
+  })
 })
 
 var locationButton = $('#send-location')
@@ -46,13 +50,20 @@ locationButton.on('click', function () {
     return alert('Geolocation not supported by your browser')
   }
 
+  // disable location button while fethching location
+  locationButton.attr('disabled', 'disabled').text('Sending location...')
+
   navigator.geolocation.getCurrentPosition(function (position) {
+    // release the location button again
+    locationButton.removeAttr('disabled').text('Send location')
+
     socket.emit('createLocationMessage', {
       lat: position.coords.latitude,
       lng: position.coords.longitude,
     })
   }, function () {
+    // release if denied as well
+    locationButton.removeAttr('disabled').text('Send location')
     alert('Unable to fetch location')
   })
 })
-
