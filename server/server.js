@@ -22,10 +22,10 @@ io.on('connection', (socket) => {
   // that object is sent to a client side
 
   // socket.emit from Admin text: Welcome to chat app
-  socket.emit('newMessage', generateMessage('💀 Admin', 'Welcome to the chat app'))
+  socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'))
 
   // broadcast sends an event to everybody but this socket
-  socket.broadcast.emit('newMessage', generateMessage('💀 Admin', 'New user joined!'))
+  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined!'))
 
   socket.on('createMessage', (message, gotMessage) => {
     console.log(message)
