@@ -1,6 +1,22 @@
 /* eslint prefer-arrow-callback: 0, func-names: 0, no-var: 0, vars-on-top: 0 */
 var socket = io()
 
+function scrollToBottom() {
+  // Selectors
+  var messages = $('#messages')
+  var newMessage = messages.children('li:last-child')
+  // Heights
+  var clientHeight = messages.prop('clientHeight')
+  var scrollTop = messages.prop('scrollTop')
+  var scrollHeight = messages.prop('scrollHeight')
+  var newMessageHeight = newMessage.innerHeight()
+  var lastMessageHeight = newMessage.prev().innerHeight() // moves us to the previous child, last to second last
+
+  if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
+    messages.scrollTop(scrollHeight) // set the scrollTop value to scrollHeight
+  }
+}
+
 socket.on('connect', function () {
   console.log('Connected to server')
 })
@@ -19,6 +35,7 @@ socket.on('newMessage', function (message) {
     createdAt: formattedTime,
   })
   $('#messages').append(html)
+  scrollToBottom()
 })
 
 socket.on('newLocationMessage', function (message) {
@@ -30,6 +47,7 @@ socket.on('newLocationMessage', function (message) {
     createdAt: formattedTime,
   })
   $('#messages').append(html)
+  scrollToBottom()
 })
 
 // e = event
