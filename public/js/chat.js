@@ -3,14 +3,21 @@ var socket = io()
 
 function scrollToBottom() {
   // Selectors
-  var messages = $('#messages')
+  var messages = $('#messages') // select #messages container
+  // store the selectror of a last list item
   var newMessage = messages.children('li:last-child')
+
   // Heights
+  // .prop method fetches a property from th browser
   var clientHeight = messages.prop('clientHeight')
   var scrollTop = messages.prop('scrollTop')
   var scrollHeight = messages.prop('scrollHeight')
+
+  // counts the height of a message, taking into a count padding as well
   var newMessageHeight = newMessage.innerHeight()
-  var lastMessageHeight = newMessage.prev().innerHeight() // moves us to the previous child, last to second last
+
+  // .prev() moves us to the previous child, ie from last message to second last
+  var lastMessageHeight = newMessage.prev().innerHeight()
 
   if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
     messages.scrollTop(scrollHeight) // set the scrollTop value to scrollHeight
