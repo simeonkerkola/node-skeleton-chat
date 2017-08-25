@@ -25,7 +25,20 @@ function scrollToBottom() {
 }
 
 socket.on('connect', function () {
-  console.log('Connected to server')
+  // grab that search string and return an object w/ name and room values
+  var params = $.deparam(window.location.search)
+
+  // Check that room where trying to join indeed exists
+  socket.emit('join', params, function (err) {
+    if (err) {
+      alert(err)
+      // sending user back to the root of the app by changing one of the
+      // properties under the location
+      window.location.href = '/'
+    } else {
+      console.log('No error')
+    }
+  })
 })
 
 socket.on('disconnect', function () {
