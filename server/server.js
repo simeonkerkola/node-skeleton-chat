@@ -5,13 +5,14 @@ const socketIO = require('socket.io')
 
 const { generateMessage, generateLocationMessage } = require('./utils/message')
 const { isRealString } = require('./utils/validation')
+const { Users } = require('./utils/users')
 
 const publicPath = path.join(__dirname, '../public')
 const port = process.env.PORT || 3000
 const app = express()
 const server = http.createServer(app)
 const io = socketIO(server)
-
+const users = new Users
 
 app.use(express.static(publicPath))
 
@@ -25,21 +26,30 @@ io.on('connection', (socket) => {
   socket.on('join', (params, callback) => {
     // check if user name and room names are valid
     if (!isRealString(params.name) || !isRealString(params.room)) {
-      callback('Name and room name are required.')
+      return callback('Name and room name are required.')
     }
 
     socket.join(params.room)
+
+    // user left/was kicked from the room
+    users.removeUser(socket.id)
+
+    // add new user to the list
+    users.addUser(socket.id, params.name, params.room)
     // socket.leave('The Office Fans')
 
+    // update users list at (chat.js)
+    io.to(params.room).emit('updateUserList', users.getUserList(params.room))
+
     // socket.emit from Admin text: Welcome to chat app
-    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'))
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app!'))
 
     // broadcast sends an event to everybody but this socket
     socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} joined!`))
 
     // on success no arguments because the first and only argument in chat.js
     // is an error argument
-    callback()
+    return callback()
   })
 
   socket.on('createMessage', (message, gotMessage) => {
@@ -53,7 +63,14 @@ io.on('connection', (socket) => {
   })
 
   socket.on('disconnect', () => {
-    console.log('User was disconnected')
+    // remove users from list on disconnect
+    const user = users.removeUser(socket.id)
+
+    if (user) {
+      // update the users list
+      io.to(user.room).emit('updateUserList', users.getUserList(user.room))
+      io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} just left the room.`))
+    }
   })
 })
 

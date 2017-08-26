@@ -1,11 +1,30 @@
 class Users {
   constructor() {
-    this.users = []
+    this.list = []
   }
   addUser(id, name, room) {
     const user = { id, name, room }
-    this.users.push(user)
+    this.list.push(user)
     return user
+  }
+  removeUser(id) {
+    const user = this.getUser(id)
+
+    if (user) {
+      this.list = this.list.filter(user => user.id !== id)
+    }
+    return user
+  }
+  getUser(id) {
+    return this.list.filter(user => user.id === id)[0]
+  }
+  getUserList(room) {
+    // get all particular rooms users
+    const users = this.list.filter(user => user.room === room)
+    // take their names
+    const namesArray = users.map(user => user.name)
+
+    return namesArray
   }
 }
 

@@ -1,4 +1,5 @@
 /* eslint prefer-arrow-callback: 0, func-names: 0, no-var: 0, vars-on-top: 0 */
+/* global moment  Mustache io */
 var socket = io()
 
 function scrollToBottom() {
@@ -43,6 +44,22 @@ socket.on('connect', function () {
 
 socket.on('disconnect', function () {
   console.log('Disconnected from server')
+})
+
+socket.on('updateUserList', function (users) {
+  // console.log(users)
+
+  // create a new jQuery element
+  var ol = $('<ol></ol>')
+
+  // append each user to ol-list above
+  users.forEach(function (user) {
+    // create a new list item and set the text property to user(name)
+    ol.append($('<li></li>').text(user))
+  })
+
+  // whipe the list replacing it with the new version
+  $('.users').html(ol)
 })
 
 // callback argument is the newMessage object from server side
