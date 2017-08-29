@@ -28,6 +28,7 @@ function scrollToBottom() {
 socket.on('connect', function () {
   // grab that search string and return an object w/ name and room values
   var params = $.deparam(window.location.search)
+  params.room = params.room.toLowerCase()
 
   // Check that room where trying to join indeed exists
   socket.emit('join', params, function (err) {
