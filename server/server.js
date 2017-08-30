@@ -27,6 +27,8 @@ io.on('connection', (socket) => {
     // check if user name and room names are valid
     if (!isRealString(params.name) || !isRealString(params.room)) {
       return callback('Name and room name are required.')
+    } else if (!users.isValidUser(params.name)) {
+      return callback('Username already in use.')
     }
 
     socket.join(params.room)

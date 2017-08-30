@@ -74,7 +74,6 @@ describe('Users', () => {
       room: 'Angular Course'
     }
     users.addUser(user5.id, user5.name, user5.room)
-    console.log(users)
 
     expect(users.list.length).toBe(3)
   })

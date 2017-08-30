@@ -2,19 +2,12 @@ class Users {
   constructor() {
     this.list = []
   }
+
   addUser(id, name, room) {
     const user = { id, name, room }
-
-    function vittu(user) {
-      console.log(user.name)
-      return user.name === name
-    }
-
-    if (!this.list.find(user => user.name === name)) {
-      console.log('name', name, 'user', user)
-      this.list.push(user)
-    }
+    this.list.push(user)
   }
+
   removeUser(id) {
     const user = this.getUser(id)
 
@@ -33,6 +26,13 @@ class Users {
     const namesArray = users.map(user => user.name)
 
     return namesArray
+  }
+
+  isValidUser(name) {
+    if (!this.list.find(user => user.name === name)) {
+      return true
+    }
+    return false
   }
 }
 
