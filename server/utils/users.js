@@ -4,14 +4,22 @@ class Users {
   }
   addUser(id, name, room) {
     const user = { id, name, room }
-    this.list.push(user)
-    return user
+
+    function vittu(user) {
+      console.log(user.name)
+      return user.name === name
+    }
+
+    if (!this.list.find(user => user.name === name)) {
+      console.log('name', name, 'user', user)
+      this.list.push(user)
+    }
   }
   removeUser(id) {
     const user = this.getUser(id)
 
     if (user) {
-      this.list = this.list.filter(user => user.id !== id)
+      this.list = this.list.filter(each => each.id !== id)
     }
     return user
   }

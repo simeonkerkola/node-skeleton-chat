@@ -25,12 +25,11 @@ describe('Users', () => {
 
   it('should add new user', () => {
     const user4 = {
-      id: '123',
-      name: 'User1',
-      room: 'Room1',
+      id: '4',
+      name: 'User4',
+      room: 'Node Course',
     }
-    const resUser = users.addUser(user4.id, user4.name, user4.room)
-
+    users.addUser(user4.id, user4.name, user4.room)
     expect(users.list[3]).toEqual(user4)
   })
 
@@ -66,5 +65,17 @@ describe('Users', () => {
     const userList = users.getUserList('Node Course')
 
     expect(userList).toEqual(['User1', 'User3'])
+  })
+
+  it('should reject same username', () => {
+    const user5 = {
+      id: '5',
+      name: 'User1',
+      room: 'Angular Course'
+    }
+    users.addUser(user5.id, user5.name, user5.room)
+    console.log(users)
+
+    expect(users.list.length).toBe(3)
   })
 })
