@@ -73,8 +73,7 @@ describe('Users', () => {
       name: 'User1',
       room: 'Angular Course'
     }
-    users.addUser(user5.id, user5.name, user5.room)
-
+    users.isValidUser(user5.name)
     expect(users.list.length).toBe(3)
   })
 })
