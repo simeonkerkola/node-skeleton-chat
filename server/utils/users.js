@@ -29,7 +29,7 @@ class Users {
   }
 
   isValidUser(name) {
-    if (!this.list.find(user => user.name === name)) {
+    if (!this.list.find(user => user.name.toLowerCase() === name.toLowerCase())) {
       return true
     }
     return false
