@@ -1,31 +1,7 @@
 class Users {
   constructor() {
     this.list = []
-  }
-
-  addUser(id, name, room) {
-    const user = { id, name, room }
-    this.list.push(user)
-  }
-
-  removeUser(id) {
-    const user = this.getUser(id)
-
-    if (user) {
-      this.list = this.list.filter(each => each.id !== id)
-    }
-    return user
-  }
-  getUser(id) {
-    return this.list.filter(user => user.id === id)[0]
-  }
-  getUserList(room) {
-    // get all particular rooms users
-    const users = this.list.filter(user => user.room === room)
-    // take their names
-    const namesArray = users.map(user => user.name)
-
-    return namesArray
+    this.rooms = []
   }
 
   isValidUser(name) {
@@ -33,6 +9,44 @@ class Users {
       return true
     }
     return false
+  }
+
+  addUser(id, name, room) {
+    const user = { id, name, room }
+    this.list.push(user)
+
+    if (!this.rooms.includes(user.room)) {
+      this.rooms.push(user.room)
+    }
+  }
+
+  removeUser(id) {
+    const user = this.getUser(id)
+    console.log('list', this.list.room)
+
+    if (user) {
+      this.list = this.list.filter(each => each.id !== id)
+      if (this.getUserList(user.room).length < 1) {
+        this.rooms = this.rooms.filter(each => each !== user.room)
+      }
+    }
+
+    return user
+  }
+
+  getUser(id) {
+    return this.list.filter(user => user.id === id)[0]
+  }
+
+  getUserList(room) {
+    // get all particular rooms users
+    const users = this.list.filter(user => user.room === room)
+    // take their names
+    const namesArray = users.map(user => user.name)
+
+    console.log(namesArray.length)
+
+    return namesArray
   }
 }
 

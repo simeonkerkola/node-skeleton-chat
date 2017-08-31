@@ -19,6 +19,7 @@ a:hover {
 
 ul, li {
   list-style-position: inside;
+  list-style: none;
 }
 
 h3 {

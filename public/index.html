@@ -17,22 +17,28 @@
         <label>Display name</label>
         <input type="text" name="name" autofocus>
       </div>
+
       <div class="form-field">
         <label>Room name</label>
-        <select class="select-room" name="select">
-          <option value="brewery">Brewery</option>
-          <option value="ball-room">Ball Room</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label>Open a room</label>
         <input type="text" name="room">
       </div>
+
+      <div class="form-field">
+        <div class="rooms">
+          <label>Populated rooms</label>
+        </div>
+      </div>
+
       <div class="form-field">
         <button>Join</button>
       </div>
     </form>
   </div>
 
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="/js/libs/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/js/libs/mustache.js"></script>
+  <script type="text/javascript" src="/js/libs/deparam.js"></script>
+  <script type="text/javascript" src="/js/index.js"></script>
 </body>
 </html>

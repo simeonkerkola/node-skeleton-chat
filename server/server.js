@@ -23,6 +23,10 @@ io.on('connection', (socket) => {
   // first arg = name of the event to emit, second arg object
   // that object is sent to a client side
 
+  console.log(users.rooms)
+  // update rooms list at (index.js)
+  socket.emit('updateRoomList', users.rooms)
+
   socket.on('join', (params, callback) => {
     // check if user name and room names are valid
     if (!isRealString(params.name) || !isRealString(params.room)) {
@@ -33,12 +37,11 @@ io.on('connection', (socket) => {
 
     socket.join(params.room)
 
-    // user left/was kicked from the room
+    // remove user from previous room
     users.removeUser(socket.id)
 
     // add new user to the list
     users.addUser(socket.id, params.name, params.room)
-    // socket.leave('The Office Fans')
 
     // update users list at (chat.js)
     io.to(params.room).emit('updateUserList', users.getUserList(params.room))
