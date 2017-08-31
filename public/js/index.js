@@ -7,7 +7,8 @@ socket.on('updateRoomList', function (rooms) {
   var ul = $('<ul></ul>')
 
   rooms.forEach(function (room) {
-    ul.append($('<li></li>').text(room))
+    const nameCapitalized = room[0].toUpperCase() + room.slice(1)
+    ul.append($('<li></li>').text(nameCapitalized))
   })
 
   $('.rooms').append(ul)
