@@ -17,13 +17,10 @@ const users = new Users()
 app.use(express.static(publicPath))
 
 io.on('connection', (socket) => {
-  console.log('new user connected')
-
   // socket.emit, instead of listening of an event creates an event
   // first arg = name of the event to emit, second arg object
   // that object is sent to a client side
 
-  console.log(users.rooms)
   // update rooms list at (index.js)
   socket.emit('updateRoomList', users.rooms)
 

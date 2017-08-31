@@ -22,7 +22,6 @@ class Users {
 
   removeUser(id) {
     const user = this.getUser(id)
-    console.log('list', this.list.room)
 
     if (user) {
       this.list = this.list.filter(each => each.id !== id)
@@ -30,7 +29,6 @@ class Users {
         this.rooms = this.rooms.filter(each => each !== user.room)
       }
     }
-
     return user
   }
 
@@ -43,8 +41,6 @@ class Users {
     const users = this.list.filter(user => user.room === room)
     // take their names
     const namesArray = users.map(user => user.name)
-
-    console.log(namesArray.length)
 
     return namesArray
   }

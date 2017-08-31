@@ -3,7 +3,6 @@
 var socket = io()
 
 socket.on('updateRoomList', function (rooms) {
-  console.log('Rooms list', rooms)
 
   var ul = $('<ul></ul>')
 
