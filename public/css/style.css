@@ -90,6 +90,14 @@ button:disabled {
   padding: 10px;
 }
 
+.toggle .field {
+  display: none;
+}
+
+.toggle .list {
+  display: block;
+}
+
 .chat {
   display: flex;
 }
