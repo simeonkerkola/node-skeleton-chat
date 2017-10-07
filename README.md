@@ -10,7 +10,7 @@ A chat app for made with Node.js together with Express and Socket.io
 - [x] Conversations only heard within their respected rooms
 - [x] Dropdown menu of all active rooms
 - [ ] Some stupid bots to stir conversation
-- [ ] Not lose chat history when last person leaves
+- [ ] To not lose chat history when last person leaves
 
 ### Install
 * Clone repo `$ git clone https://github.com/sssmi/node-skeleton-chat.git`
